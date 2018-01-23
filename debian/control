@@ -1,0 +1,18 @@
+Source: dptfxtract
+Section: non-free/admin
+Priority: optional
+Maintainer: Anthony Wong <anthony.wong@ubuntu.com>
+Build-Depends: debhelper (>=9), dh-systemd
+Standards-Version: 3.9.7
+Homepage: https://github.com/intel/dptfxtract
+Vcs-Git: https://github.com/intel/dptfxtract.git
+Vcs-Browser: https://github.com/intel/dptfxtract
+
+Package: dptfxtract
+Architecture: amd64
+Depends: ${misc:Depends}, thermald, acpica-tools
+Description: Linux DPTF Extract Utility
+ This is a companion tool to Linux Thermal Daemon (thermald). This tool tries
+ to reuse some of the tables used by "Intel ® Dynamic Platform and Thermal
+ Framework (Intel® DPTF)" by converting to the thermal_conf.xml format used by
+ thermald.

@@ -1,0 +1,5 @@
+dptfxtract (1.2-1) bionic; urgency=medium
+
+  * Initial release (LP: #1731382)
+
+ -- Anthony Wong <anthony.wong@canonical.com>  Wed, 10 Jan 2018 00:32:43 +0800

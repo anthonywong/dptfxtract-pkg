@@ -1,0 +1,12 @@
+[Unit]
+Description=dptfxtract
+Before=thermald.service
+
+[Service]
+EnvironmentFile=-/etc/default/dptfxtract
+ExecStart=/usr/bin/dptfxtract-helper --auto-update=${AUTO_UPDATE}
+Type=oneshot
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

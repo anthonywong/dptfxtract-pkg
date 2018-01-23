@@ -1,0 +1,72 @@
+#!/bin/bash
+
+[ "$EUID" -ne 0 ] && echo "Please run as root." && exit
+
+CONF=/var/lib/dptfxtract/thermal-conf.xml.auto
+LINK=/etc/thermald/thermal-conf.xml
+BIOS_INFO=/var/lib/dptfxtract/bios-version
+DUMP=acpidump
+AUTO_UPDATE=""
+
+TMPDIR=`mktemp -d`
+cd $TMPDIR
+
+goodbye()
+{
+    rm -rf $TMPDIR
+    exit $1
+}
+
+OPTS=`getopt -o u: --long auto-update: -n 'dptfxtract' -- "$@"`
+eval set -- "$OPTS"
+while true; do
+    case "$1" in
+        -u | --auto-update) AUTO_UPDATE=$2; shift 2 ;;
+        --) shift; break ;;
+        *)  break ;;
+    esac
+done
+
+if [ -n "$AUTO_UPDATE" ]; then
+    case "$AUTO_UPDATE" in
+        yes)
+            if [ -f $BIOS_INFO ]; then
+                dmidecode -t 0 | sed '/^BIOS Information/,$!d' > $TMPDIR/curr_bios_info
+                tail -n +3 $BIOS_INFO > $TMPDIR/last_bios_info
+
+                diff -q $TMPDIR/curr_bios_info $TMPDIR/last_bios_info > /dev/null
+                [ $? -eq 0 ] && goodbye # bios unchanged, no need to update
+            fi ;;
+        *)
+            goodbye;;
+    esac
+fi
+
+acpidump > $DUMP
+acpixtract -a $DUMP > /dev/null
+
+# FIXME: Ideally we can run dptfxtract with a non-root user, like:
+#   su _dptfxtract -c dptfxtract $TMPDIR/*.dat -o $TMPDIR
+dptfxtract $TMPDIR/*.dat -o $TMPDIR
+
+if [ ! -f $TMPDIR/thermal-conf.xml.auto ]; then
+    echo "Your machine does not support DPTF."
+    goodbye 0
+fi
+
+if [ -f $CONF ]; then
+    mv --backup=t $CONF $CONF.bak
+cat << _EOF
+An existing configuration file is found in $CONF. I have backed it up
+in /var/lib/dptfxtract.  Please update the newly generated
+configuration manually if you have made any changes in the original
+configuration file."
+_EOF
+fi
+
+mv $TMPDIR/thermal-conf.xml.auto $CONF
+ln -sf $CONF $LINK
+
+(echo -e "Generated with the following BIOS:\n"; \
+    dmidecode -t 0 | sed '/^BIOS Information/,$!d' ) > /var/lib/dptfxtract/bios-version
+

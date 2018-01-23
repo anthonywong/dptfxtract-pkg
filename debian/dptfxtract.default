@@ -1,0 +1,10 @@
+# Defaults for dptfxtract initscript
+# sourced by /etc/init.d/dptfxtract
+# installed at /etc/default/dptfxtract by the maintainer scripts
+
+# Set this to "yes" if you want thermald configuration to be
+# automatically update when BIOS is changed.
+# Note that this option will override any manual changes you make to
+# /etc/thermald/thermal-conf.xml
+# Default: no
+AUTO_UPDATE="no"
