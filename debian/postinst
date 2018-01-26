@@ -17,7 +17,6 @@ set -e
 # for details, see https://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-LINK=/etc/thermald/thermal-conf.xml
 CONF=/var/lib/dptfxtract/thermal-conf.xml
 
 case "$1" in
@@ -27,13 +26,7 @@ case "$1" in
 #            adduser --quiet --system --no-create-home --force-badname \
 #                    --home /var/lib/dptfxtract _dptfxtract
 #        fi
-
-		dpkg-divert --package dptfxtract --add --rename $LINK
         dptfxtract-helper
-
-        if [ ! -f $CONF ]; then
-            ln -sf $LINK.distrib $LINK
-        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
