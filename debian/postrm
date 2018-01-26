@@ -18,14 +18,12 @@ set -e
 # for details, see https://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-
-LINK=/etc/thermald/thermal-conf.xml
-CONF=/var/lib/dptfxtract/thermal-conf.xml
-
 case "$1" in
     remove|abort-install|disappear)
-        [ -L $LINK ] && rm $LINK
-        dpkg-divert --package dptfxtract --rename --remove $LINK || true
+        THERMALD_CONF=/var/run/thermald/thermal-conf.xml.auto
+        cd /var/run/thermald
+        [ -L $THERMALD_CONF ] && rm $THERMALD_CONF
+        [ -f $THERMALD_CONF.thermald ] && mv $THERMALD_CONF.thermald $THERMALD_CONF
     ;;
 
     purge)
