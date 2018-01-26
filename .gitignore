@@ -1,1 +1,11 @@
 .pc
+debian/debhelper-build-stamp
+debian/dptfxtract.debhelper.log
+debian/dptfxtract.postinst.debhelper
+debian/dptfxtract.postrm.debhelper
+debian/dptfxtract.prerm.debhelper
+debian/dptfxtract.substvars
+debian/dptfxtract/
+debian/files
+
+
