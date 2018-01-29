@@ -1,5 +1,5 @@
-dptfxtract (1.2-1) bionic; urgency=medium
+dptfxtract (1.2-0ubuntu1) bionic; urgency=medium
 
   * Initial release (LP: #1731382)
 
- -- Anthony Wong <anthony.wong@canonical.com>  Wed, 10 Jan 2018 00:32:43 +0800
+ -- Anthony Wong <anthony.wong@ubuntu.com>  Wed, 10 Jan 2018 00:32:43 +0800
