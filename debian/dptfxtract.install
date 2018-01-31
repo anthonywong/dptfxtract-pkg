@@ -1,2 +1,2 @@
-dptfxtract              /usr/bin
-dptfxtract-helper       /usr/bin
+dptfxtract                      /usr/bin
+debian/dptfxtract-helper        /usr/bin
