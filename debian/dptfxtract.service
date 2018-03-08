@@ -1,6 +1,6 @@
 [Unit]
 Description=dptfxtract
-Before=thermald.service
+After=thermald.service
 
 [Service]
 EnvironmentFile=-/etc/default/dptfxtract

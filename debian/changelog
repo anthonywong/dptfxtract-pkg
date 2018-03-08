@@ -1,3 +1,9 @@
+dptfxtract (1.2-0ubuntu2) bionic; urgency=medium
+
+  * Start systemd service after thermald.
+
+ -- Anthony Wong <anthony.wong@canonical.com>  Thu, 08 Mar 2018 14:56:14 +0800
+
 dptfxtract (1.2-0ubuntu1) bionic; urgency=medium
 
   * Initial release (LP: #1731382)
